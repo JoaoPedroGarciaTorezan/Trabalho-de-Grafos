@@ -1,0 +1,23 @@
+﻿codigo_disciplina,disciplina,carga_horaria,periodo,situacao,nota_final,status
+MAT00A,Cálculo A,64,2023.1,REP,0.0,Reprovado
+MAT00A,Cálculo A,64,2023.2,REP,0.1,Reprovado
+MAT00A,Cálculo A,64,2024.1,REPMF,3.5,Reprovado
+MAT00A,Cálculo A,64,2025.1,MATR,,Matriculado
+CAHC04,Projeto Integrado,32,2023.1,APR,7.2,Aprovado
+CRSC03,Arquitetura de Computadores I,64,2023.1,REP,4.7,Reprovado
+CRSC03,Arquitetura de Computadores I,64,2024.1,REP,4.7,Reprovado
+CRSC03,Arquitetura de Computadores I,64,2025.1,MATR,,Matriculado
+IEPG21,Ciências Humanas e Sociais,48,2023.1,TRANC,,Trancado
+IEPG21,Ciências Humanas e Sociais,48,2023.2,APR,8.1,Aprovado
+XDES01,Fundamentos de Programação,64,2023.1,APR,6.9,Aprovado
+XMAC01,Matemática Discreta,64,2023.1,APR,6.5,Aprovado
+CDES05,Programação Lógica e Funcional,64,2023.2,APR,6.6,Aprovado
+CTCO01,Algoritmos e Estrutura de Dados I,64,2023.2,REPMF,1.9,Reprovado
+CTCO01,Algoritmos e Estrutura de Dados I,64,2024.2,REP,4.6,Reprovado
+ADM51H,"Ciências, Tecnologia e Organizações",48,2024.1,APR,8.4,Aprovado
+XDES04,Engenharia de Software I,64,2024.1,APR,7.6,Aprovado
+XMCO01,Inteligência Artificial,64,2024.1,APR,7.6,Aprovado
+XAHC01,Computação e Sociedade,64,2024.2,APR,8.0,Aprovado
+XDES11,Tópicos em DES I,64,2024.2,APR,8.5,Aprovado
+SDES05,Engenharia de Software II,64,2025.1,MATR,,Matriculado
+XDES02,Programação Orientada a Objetos,64,2025.1,MATR,,Matriculado
