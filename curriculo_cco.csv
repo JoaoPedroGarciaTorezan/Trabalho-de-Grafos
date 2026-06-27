@@ -27,7 +27,7 @@ CMAC04,Modelagem Computacional,OBRIGATORIA,Matemática da Computação,2,SEMESTR
 CMAC05,Cálculo Numérico para Computação,OBRIGATORIA,Matemática da Computação,4,SEMESTRAL,64,MAT00B,CIC250/MAT012
 XAHC01,Computação e Sociedade,OBRIGATORIA,Aspectos Humanos em Computação,7,ANUAL,64,,COM312
 XAHC02,Interação Humano-Computador,OBRIGATORIA,Aspectos Humanos em Computação,6,SEMESTRAL,64,XDES03|XDES04,COM213
-XAHC03,Metodologia Científica,OBRIGATORIA,Aspectos Humanos em Computação,7,ANUAL,64,TCC1,COM310
+XAHC03,Metodologia Científica,OBRIGATORIA,Aspectos Humanos em Computação,7,ANUAL,64,CTCO04/XRSC01,COM310
 CAHC04,Projeto Integrado,OBRIGATORIA,Aspectos Humanos em Computação,1,SEMESTRAL,32,,
 TCC1,Trabalho de Conclusão de Curso 1,TCC,TCC,7,SEMESTRAL,140,XAHC03,
 TCC2,Trabalho de Conclusão de Curso 2,TCC,TCC,8,SEMESTRAL,210,TCC1,
