@@ -1,0 +1,81 @@
+CODIGO,NOME,TIPO,AREA,PERIODO,OFERTA,CH,PREREQUISITOS,EQUIVALENTES,HORARIOS
+XDES01,Fundamentos de Programação,OBRIGATORIA,Desenvolvimento e Eng. de Software,1,1°SEMESTRE,64,,COM110|ECOP11A|ECOP01|ECOP11,Terça 10:10 | Quarta 10:10 | Terça 19:00 | Quinta 21:00
+XDES02,Programação Orientada a Objetos,OBRIGATORIA,Desenvolvimento e Eng. de Software,3,ANUAL,64,XDES01,COM220|ECOP13A|ECOP03|ECOP13,Terça 15:45 | Quinta 15:45 | Sexta 19:00 | Quarta 21:00
+XDES03,Programação Web,OBRIGATORIA,Desenvolvimento e Eng. de Software,4,ANUAL,64,XDES02,COM222|ECOX05,Terça 19:00 | Quinta 21:00 | Terça 07:55 | Quinta 07:55 | Terça 13:30 | Quinta 15:45
+XDES04,Engenharia de Software I,OBRIGATORIA,Desenvolvimento e Eng. de Software,3,ANUAL,64,,COM210|ECOT01A|ECOT11A|ECOT01|ECOT11,Quarta 10:10 | Segunda 15:45 | Segunda 19:00 | Segunda 19:50 | Quinta 21:00 | Quinta 21:50
+CDES05,Programação Lógica e Funcional,OBRIGATORIA,Desenvolvimento e Eng. de Software,4,2°SEMESTRE,64,XMAC01,CIC131,Sexta 13:30 | Quarta 15:45
+XPAD01,Banco de Dados I,OBRIGATORIA,Persistência e Análise de Dados,4,ANUAL,64,CTCO02,COM230|ECOT03A|ECOT13A|ECOT03|ECOT13,Quinta 10:10 | Quarta 13:30 | Segunda 19:00 | Quinta 19:00
+XMCO01,Inteligência Artificial,OBRIGATORIA,Metodologias Comp. e Otimização,5,ANUAL,64,XMAC02,CIC260|SIN260|XMACO01,Terça 13:30 | Quinta 13:30 | Terça 19:00
+CMCO05,Introdução à Computação Visual,OBRIGATORIA,Metodologias Comp. e Otimização,5,1°SEMESTRE,64,XMAC02|XDES02,CIC271|ECOE19,Quinta 15:45 | Sexta 15:45 | Quinta 15:45 | Sexta 15:45
+XRSC01,Redes de Computadores,OBRIGATORIA,Redes e Sistemas Computacionais,4,ANUAL,64,CRSC02,COM240|TELC03A|TELC13A|TELC03|TELC13,Sexta 19:00 | Terça 21:00 | Segunda 13:30 | Quinta 13:30
+CRSC02,Sistemas Operacionais,OBRIGATORIA,Redes e Sistemas Computacionais,3,ANUAL,64,CTCO01|CRSC04,COM120|ECOS01A|ECOS11A|ECOS01,Terça 13:30 | Quinta 13:30
+CRSC03,Arquitetura de Computadores I,OBRIGATORIA,Redes e Sistemas Computacionais,1,1°SEMESTRE,64,,CIC120|ELTD01A|ELTD11A|ELTD01|ELTD11,Terça 15:45 | Quinta 15:45
+CRSC04,Arquitetura de Computadores II,OBRIGATORIA,Redes e Sistemas Computacionais,2,2°SEMESTRE,64,CRSC03,CIC121|ECOX01,Terça 13:30 | Quinta 13:30
+CRSC05,Sistemas Embarcados,OBRIGATORIA,Redes e Sistemas Computacionais,4,ANUAL,64,CRSC02,ECOP04|ECOP14,Terça 07:55
+CTCO01,Algoritmos e Estruturas de Dados I,OBRIGATORIA,Teoria da Computação,2,2°SEMESTRE,64,XDES01,COM111|STCO01|ECOP02A|ECOP02|ECOP12,Quarta 13:30 | Sexta 13:30
+CTCO02,Algoritmos e Estruturas de Dados II,OBRIGATORIA,Teoria da Computação,3,1°SEMESTRE,64,CTCO01,COM112|STCO02,Segunda 13:30 | Quarta 15:45
+CTCO03,Análise e Projeto Orientados a Objeto,OBRIGATORIA,Teoria da Computação,4,1°SEMESTRE,64,XDES02,COM221,Quarta 07:55 | Sexta 10:10
+CTCO04,Projeto e Análise de Algoritmos,OBRIGATORIA,Teoria da Computação,4,2°SEMESTRE,64,CTCO02,CIC110,Quinta 10:10 | Segunda 15:45
+CTCO05,Teoria da Computação,OBRIGATORIA,Teoria da Computação,6,1°SEMESTRE,64,CTCO04|CDES05,CIC132,Sexta 07:55 | Terça 10:10
+CTCO06,Compiladores,OBRIGATORIA,Teoria da Computação,7,2°SEMESTRE,64,CTCO05,CIC220,Quinta 10:10 | Segunda 15:45
+MAT00A,Cálculo A,OBRIGATORIA,Matemática da Computação,1,ANUAL,64,,MAT001,Quarta 13:30 | Segunda 15:45 | Segunda 19:00 | Quarta 21:00
+MAT00B,Cálculo B,OBRIGATORIA,Matemática da Computação,2,ANUAL,64,MAT00A,MAT002,Segunda 07:55 | Quarta 10:10
+XMAC01,Matemática Discreta,OBRIGATORIA,Matemática da Computação,1,ANUAL,64,,MAT015|MAT057|MAT017|ECOM01A|ECOM11A|ECOM01|ECOM11,Terça 07:55 | Quarta 07:55 | Quarta 19:00 | Segunda 21:00
+XMAC02,Métodos Matemáticos para Análise de Dados,OBRIGATORIA,Matemática da Computação,3,ANUAL,64,MAT00A|XMAC01|CTCO01,MAT013,Quarta 13:30 | Sexta 13:30 | Quarta 19:00 | Terça 21:00
+CMAC03,Algoritmos em Grafos,OBRIGATORIA,Matemática da Computação,3,ANUAL,64,CTCO01,SIN110|SMAC03,Quinta 07:55 | Terça 10:10
+CMAC04,Modelagem Computacional,OBRIGATORIA,Matemática da Computação,2,2°SEMESTRE,64,MAT00A,CIC510,Quarta 15:45 | Quinta 15:45
+CMAC05,Cálculo Numérico para Computação,OBRIGATORIA,Matemática da Computação,4,2°SEMESTRE,64,MAT00B,CIC250|MAT012,Quarta 13:30 | Terça 15:45
+XAHC01,Computação e Sociedade,OBRIGATORIA,Aspectos Humanos em Computação,7,ANUAL,64,,COM312,Quarta 19:00
+XAHC02,Interação Humano-Computador,OBRIGATORIA,Aspectos Humanos em Computação,6,2°SEMESTRE,64,XDES03|XDES04,COM213,Sexta 07:55 | Terça 10:10 | Quinta 19:00 | Segunda 21:00 | Segunda 13:30 | Terça 13:30
+XAHC03,Metodologia Científica,OBRIGATORIA,Aspectos Humanos em Computação,7,ANUAL,64,CTCO04|XRSC01,COM310,Quinta 13:30 | Sexta 13:30 | Quinta 19:00
+CAHC04,Projeto Integrado,OBRIGATORIA,Aspectos Humanos em Computação,1,2°SEMESTRE,32,,,Quinta 13:30
+TCC1,Trabalho de Conclusão de Curso 1,TCC,TCC,7,1°SEMESTRE,140,XAHC03,,
+TCC2,Trabalho de Conclusão de Curso 2,TCC,TCC,8,2°SEMESTRE,210,TCC1,,
+SDES05,Engenharia de Software II,OPTATIVA,Desenvolvimento e Eng. de Software,5|7,1°SEMESTRE,64,XDES04,COM211,Quarta 19:00 | Sexta 21:00
+SDES06,Gerência de Projetos de Software,OPTATIVA,Desenvolvimento e Eng. de Software,6|8,2°SEMESTRE,64,XDES04,COM212,Quinta 19:00 | Segunda 21:00
+SDES07,Desenvolvimento de Sistemas Web,OPTATIVA,Desenvolvimento e Eng. de Software,5|7,1°SEMESTRE,64,XDES04|XPAD01|XDES03,SIN412,Segunda 19:00 | Quarta 19:00 | Segunda 19:00 | Sexta 19:00
+XDES08,Arquitetura de Software,OPTATIVA,Desenvolvimento e Eng. de Software,6|8,2°SEMESTRE,64,XDES04,,
+XDES10,Engenharia de Software Experimental,OPTATIVA,Desenvolvimento e Eng. de Software,6|8,2°SEMESTRE,64,XDES04,,
+XDES11,Tópicos em DES I,OPTATIVA,Desenvolvimento e Eng. de Software,5|7,1°SEMESTRE,64,XDES04,,Segunda 19:00 | Quinta 21:00 | Segunda 19:00 | Quinta 21:00
+XDES12,Tópicos em DES II,OPTATIVA,Desenvolvimento e Eng. de Software,6|8,2°SEMESTRE,64,XDES04,,
+XDES14,Desenvolvimento para Dispositivos Móveis,OPTATIVA,Desenvolvimento e Eng. de Software,5|7,1°SEMESTRE,64,XDES03|XPAD01,,
+XDES16,Fundamentos de Game Design,OPTATIVA,Desenvolvimento e Eng. de Software,5|7,1°SEMESTRE,64,XDES02|XDES04|CTCO01,,
+XDES17,Introdução à Codificação de Jogos Digitais,OPTATIVA,Desenvolvimento e Eng. de Software,6|8,2°SEMESTRE,64,XDES02|XDES04|CTCO01,,
+ECOX21,Maratona de Programação I,OPTATIVA,Desenvolvimento e Eng. de Software,2,ANUAL,48,XDES01,ECOE44,Quarta 19:00
+ECOX22,Maratona de Programação II,OPTATIVA,Desenvolvimento e Eng. de Software,1,ANUAL,48,ECOX21,ECOE45,
+SPAD02,Bancos de Dados II,OPTATIVA,Persistência e Análise de Dados,6|8,2°SEMESTRE,64,XPAD01,COM231,Quarta 19:00 | Segunda 21:00
+SPAD03,Introdução à Análise de Dados,OPTATIVA,Persistência e Análise de Dados,5|7,1°SEMESTRE,64,XMAC02|XPAD01,,Quinta 19:00
+XPAD04,Banco de Dados NoSQL,OPTATIVA,Persistência e Análise de Dados,6|8,2°SEMESTRE,64,XPAD01,,Quarta 10:10 | Segunda 15:45 | Quarta 10:10 | Segunda 15:45 | Sexta 19:00 | Quarta 21:00 | Sexta 19:00 | Quarta 21:00
+XPAD08,Tópicos em PAD,OPTATIVA,Persistência e Análise de Dados,6|7|8,ANUAL,64,XPAD01|SPAD03,,Quarta 10:10 | Segunda 15:45
+XPAD09,Análise e Previsão de Séries Temporais,OPTATIVA,Persistência e Análise de Dados,5|7,1°SEMESTRE,64,XMAC02,,Terça 19:00 | Quarta 21:00 | Terça 19:00 | Quarta 21:00
+XMCO02,Métodos Exatos,OPTATIVA,Metodologias Comp. e Otimização,6|8,2°SEMESTRE,64,XMAC02|CTCO02,,Segunda 19:50 | Quinta 21:50 | Segunda 19:00 | Quinta 21:00
+XMCO03,Metaheurísticas,OPTATIVA,Metodologias Comp. e Otimização,5|7,1°SEMESTRE,64,XMAC02|CTCO02,COM936,
+XMCO04,Tópicos em MCO,OPTATIVA,Metodologias Comp. e Otimização,7,ANUAL,64,XMAC02|CTCO02,,
+CMCO06,Modelagem Geométrica e Visual,OPTATIVA,Metodologias Comp. e Otimização,6|8,2°SEMESTRE,64,XMAC02|CMCO05,,
+CMCO07,Visão Computacional,OPTATIVA,Metodologias Comp. e Otimização,7,ANUAL,64,XMAC01|CMCO05,,
+XMCO08,Teoria dos Jogos,OPTATIVA,Metodologias Comp. e Otimização,5|7,1°SEMESTRE,64,XMAC02,,
+XMCO09,Ciência de Redes,OPTATIVA,Metodologias Comp. e Otimização,6|8,2°SEMESTRE,64,CMAC03,,
+XRSC06,Auditoria e Segurança de SI,OPTATIVA,Redes e Sistemas Computacionais,5|7,1°SEMESTRE,64,XRSC01,SIN414,
+XRSC07,Computação em Nuvem,OPTATIVA,Redes e Sistemas Computacionais,6|8,2°SEMESTRE,64,XRSC01,COM241,Quinta 19:00
+XRSC08,Programação Paralela,OPTATIVA,Redes e Sistemas Computacionais,5|7,1°SEMESTRE,64,XRSC01,COM919|ECOX04|ECOE03,
+XRSC09,Sistemas Distribuídos,OPTATIVA,Redes e Sistemas Computacionais,6|8,2°SEMESTRE,64,XRSC01,COM242|ECOS02A|ECOS12A|ECOS02|ECOS12,Quinta 10:10 | Terça 13:30 | Quinta 10:10 | Terça 13:30 | Quinta 19:00 | Terça 21:00
+XRSC10,Tópicos em RSC,OPTATIVA,Redes e Sistemas Computacionais,5|7,1°SEMESTRE,64,XRSC01,,
+ECOS04,Simulação e Avaliação de Desempenho,OPTATIVA,Redes e Sistemas Computacionais,5|7,1°SEMESTRE,32,XRSC09,,
+SADG01,Gestão e Governança de TI,OPTATIVA,Administração e Gestão,5|7,1°SEMESTRE,64,IEPG22,SIN210,Terça 19:00 | Quarta 21:00
+SADG02,Economia da Informação,OPTATIVA,Administração e Gestão,7,ANUAL,64,,CIC310,Quarta 19:00 | Sexta 19:00
+IEPG01,Empreendedorismo e Inovação,OPTATIVA,Administração e Gestão,1,ANUAL,32,,,Terça 21:00
+IEPG10,Engenharia Econômica,OPTATIVA,Administração e Gestão,1,ANUAL,48,,COM311|EPR502,Quarta 19:00
+IEPG14,Comportamento Organizacional I,OPTATIVA,Administração e Gestão,1,ANUAL,32,,SIN411,Segunda 21:00
+IEPG20,Introdução à Economia,OPTATIVA,Administração e Gestão,1,ANUAL,48,,ECN001,Quarta 21:00
+IEPG22,Administração Aplicada,OPTATIVA,Administração e Gestão,1,ANUAL,32,,SIN310,Quarta 19:00
+ADM03E,Empreendedorismo Tecnológico,OPTATIVA,Administração e Gestão,1,ANUAL,48,IEPG01,SIN312,Terça 21:00
+XAHC06,Tópicos em AHC,OPTATIVA,Aspectos Humanos em Computação,7,ANUAL,64,,,
+XAHC07,Computação Aplicada à Educação,OPTATIVA,Aspectos Humanos em Computação,5|7,1°SEMESTRE,64,XDES03|XDES04,,
+XAHC08,Tópicos em UX Design,OPTATIVA,Aspectos Humanos em Computação,6|8,2°SEMESTRE,64,XMAC02|XAHC02,,
+IEPG21,Ciências Humanas e Sociais,OPTATIVA,Aspectos Humanos em Computação,2,ANUAL,48,,,Terça 15:45 | Terça 15:45 | Terça 15:45 | Terça 15:45 | Terça 15:45
+ADM08H,Psicologia: As relações Indivíduo-Grupo,OPTATIVA,Aspectos Humanos em Computação,1,ANUAL,48,,,
+LET007,LIBRAS: Língua Brasileira de Sinais,OPTATIVA,Aspectos Humanos em Computação,2,ANUAL,48,,,
+ADM51H,"Ciências, Tecnologias e Organizações",OPTATIVA,Aspectos Humanos em Computação,1,ANUAL,48,,,Quarta 15:45 | Quarta 15:45 | Quarta 15:45
+ADM52H,Comportamento Organizacional II,OPTATIVA,Aspectos Humanos em Computação,2,ANUAL,48,,,
+ADM54H,Gestão de Carreira,OPTATIVA,Aspectos Humanos em Computação,1,ANUAL,32,,,Quarta 21:50 | Quarta 21:00
+ADM58H,Psicologia Organizacional e do Trabalho,OPTATIVA,Aspectos Humanos em Computação,1|2,ANUAL,32,,,
