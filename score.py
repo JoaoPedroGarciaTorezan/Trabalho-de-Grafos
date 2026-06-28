@@ -17,7 +17,7 @@ Onde:
                     Garante score > 0 mesmo para disciplinas sem descendentes,
                     diferenciando-as por tipo e profundidade topológica.
     afinidade     = média das notas APR na área / 10  (escala 0–1)
-    F_oferta      = 2.0 se ANUAL | 1.0 se SEMESTRAL
+    F_oferta      = 1.0 se ANUAL | 2.0 se SEMESTRAL
     F_critico(d)  = caminho_critico(d) / max_caminho_critico_global  (0–1)
 
 Componentes do score_bfs:
@@ -113,8 +113,8 @@ def _fator_profundidade(layer: int) -> float:
 def _fator_oferta(oferta: str) -> float:
     """
     F_oferta(d):
-        ANUAL      → 2.0  (ofertada 1x por ano: maior urgência)
-        SEMESTRAL  → 1.0
+        ANUAL      → 1.0  (ofertada 2x por ano: em ambos os semestres --> menor urgencia)
+        SEMESTRAL  → 2.0
     """
     oferta_norm = (
         oferta.upper().strip()
@@ -122,8 +122,8 @@ def _fator_oferta(oferta: str) -> float:
         .replace("º", "")
     )
     if oferta_norm == "ANUAL":
-        return 2.0
-    return 1.0
+        return 1.0
+    return 2.0
 
 
 def _score_base(disc: Disciplina) -> float:
@@ -379,9 +379,9 @@ if __name__ == "__main__":
 
     # ── Carrega dados ────────────────────────────────────────────────────────
     df_curr = pd.read_csv(os.path.join(BASE, "curriculo_cco.csv"))
-    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-5.csv"))
+    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-3.csv"))
 
-    SEMESTRE = "2025.1"
+    SEMESTRE = "2025.2"
 
     # ── Constrói DAG e processa histórico ────────────────────────────────────
     dag   = construir_dag(df_curr)
