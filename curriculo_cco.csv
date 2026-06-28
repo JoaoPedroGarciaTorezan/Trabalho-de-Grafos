@@ -12,8 +12,8 @@ CRSC02,Sistemas Operacionais,OBRIGATORIA,Redes e Sistemas Computacionais,3,ANUAL
 CRSC03,Arquitetura de Computadores I,OBRIGATORIA,Redes e Sistemas Computacionais,1,1°SEMESTRE,64,,CIC120|ELTD01A|ELTD11A|ELTD01|ELTD11
 CRSC04,Arquitetura de Computadores II,OBRIGATORIA,Redes e Sistemas Computacionais,2,2°SEMESTRE,64,CRSC03,CIC121|ECOX01
 CRSC05,Sistemas Embarcados,OBRIGATORIA,Redes e Sistemas Computacionais,4,ANUAL,64,CRSC02,ECOP04|ECOP14
-CTCO01,Algoritmos e Estruturas de Dados I,OBRIGATORIA,Teoria da Computação,2,1°SEMESTRE,64,XDES01,COM111|STCO01|ECOP02A|ECOP02|ECOP12
-CTCO02,Algoritmos e Estruturas de Dados II,OBRIGATORIA,Teoria da Computação,3,2°SEMESTRE,64,CTCO01,COM112|STCO02
+CTCO01,Algoritmos e Estruturas de Dados I,OBRIGATORIA,Teoria da Computação,2,2°SEMESTRE,64,XDES01,COM111|STCO01|ECOP02A|ECOP02|ECOP12
+CTCO02,Algoritmos e Estruturas de Dados II,OBRIGATORIA,Teoria da Computação,3,1°SEMESTRE,64,CTCO01,COM112|STCO02
 CTCO03,Análise e Projeto Orientados a Objeto,OBRIGATORIA,Teoria da Computação,4,1°SEMESTRE,64,XDES02,COM221
 CTCO04,Projeto e Análise de Algoritmos,OBRIGATORIA,Teoria da Computação,4,2°SEMESTRE,64,CTCO02,CIC110
 CTCO05,Teoria da Computação,OBRIGATORIA,Teoria da Computação,6,1°SEMESTRE,64,CTCO04|CDES05,CIC132
