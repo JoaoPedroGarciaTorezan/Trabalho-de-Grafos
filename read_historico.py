@@ -4,13 +4,13 @@ historico_aluno.py
 Passo 2 do pipeline de recomendação de matrícula.
 
 A partir do DataFrame do histórico do aluno, extrai:
-  1. Conjunto de disciplinas aprovadas  (situacao == 'APR')
+    1. Conjunto de disciplinas aprovadas  (situacao == 'APR' ou 'CUMP')
   2. Capacidade da mochila              (média de CH aprovada por semestre real)
   3. Afinidade por área                 (média de notas / 10, escala 0-1)
 
 Regras adotadas (conforme decisão de projeto):
   - Transferências (semestre == 'TRANSFERENCIA') são ignoradas na capacidade.
-  - Apenas 'APR' conta como aprovado (nota real).
+    - 'APR' e 'CUMP' contam como aprovação para o conjunto de disciplinas cursadas.
   - CUMP/DISP sem nota são ignorados no cálculo de afinidade.
   - Normalização de afinidade: média_da_área / 10  →  0 a 1 linear.
 """
@@ -30,7 +30,7 @@ import pandas as pd
 class HistoricoAluno:
     """Resultado do processamento do histórico de um aluno."""
 
-    # Conjunto de códigos aprovados (situacao == 'APR')
+    # Conjunto de códigos aprovados (situacao == 'APR' ou 'CUMP')
     aprovadas: set[str] = field(default_factory=set)
 
     # Capacidade da mochila: média de CH aprovada por semestre real (arredondada)
@@ -93,8 +93,8 @@ def processar_historico(
         df_curriculo.set_index("CODIGO")["AREA"].to_dict()
     )
 
-    # ── Filtra apenas APR ────────────────────────────────────────────────────
-    mask_apr = df_historico["situacao"] == "APR"
+    # ── Filtra APR e CUMP ───────────────────────────────────────────────────
+    mask_apr = df_historico["situacao"].isin(["APR", "CUMP"])
     df_apr   = df_historico[mask_apr].copy()
 
     # ── 1. Conjunto de aprovadas ─────────────────────────────────────────────
@@ -180,7 +180,7 @@ if __name__ == "__main__":
 
     BASE = os.path.dirname(__file__)
 
-    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-4.csv"))
+    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-5.csv"))
     df_curr = pd.read_csv(os.path.join(BASE, "curriculo_cco.csv"))
 
     aluno = processar_historico(df_hist, df_curr)
