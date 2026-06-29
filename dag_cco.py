@@ -275,7 +275,18 @@ def construir_dag(df: pd.DataFrame) -> DAG:
 
 if __name__ == "__main__":
     # ── Carrega o CSV ────────────────────────────────────────────────────────
-    CSV_PATH = "curriculo_cco.csv"   # ajuste o caminho conforme necessário
+    
+    while True:
+        curso = input("Digite o curso (CCO ou SIN): ").upper().strip()
+        if curso not in ['CCO', 'SIN']:
+            print("Curso inválido! Por favor, digite CCO ou SIN.")
+        else:
+            break
+    if curso == 'CCO':
+        CSV_PATH = "curriculo_CCO_HORARIOS.csv"   # ajuste o caminho conforme necessário
+    else:
+        CSV_PATH = "curriculo_SIN_HORARIOS.csv"   # ajuste o caminho conforme necessário
+
     df = pd.read_csv(CSV_PATH)
 
     # ── Constrói o DAG ───────────────────────────────────────────────────────

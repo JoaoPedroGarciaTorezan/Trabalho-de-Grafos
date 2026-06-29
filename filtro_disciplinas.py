@@ -254,10 +254,21 @@ if __name__ == "__main__":
     import os
 
     BASE = os.path.dirname(__file__)
+    
+    while True:
+        curso = input("Digite o curso (CCO ou SIN): ").upper().strip()
+        if curso not in ['CCO', 'SIN']:
+            print("Curso inválido! Por favor, digite CCO ou SIN.")
+        else:
+            break
+    if curso == 'CCO':
+        CSV_PATH = "curriculo_CCO_HORARIOS.csv"   # ajuste o caminho conforme necessário
+    else:
+        CSV_PATH = "curriculo_SIN_HORARIOS.csv"   # ajuste o caminho conforme necessário
 
     # ── Carrega dados ────────────────────────────────────────────────────────
-    df_curr = pd.read_csv(os.path.join(BASE, "curriculo_cco.csv"))
-    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-4.csv"))
+    df_curr = pd.read_csv(os.path.join(BASE, CSV_PATH))
+    df_hist = pd.read_csv(os.path.join(BASE, "dataset/historico_SIN-5.csv"))
 
     # ── Constrói DAG e processa histórico ────────────────────────────────────
     dag   = construir_dag(df_curr)

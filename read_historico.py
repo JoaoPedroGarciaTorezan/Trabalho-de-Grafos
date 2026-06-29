@@ -184,8 +184,19 @@ if __name__ == "__main__":
 
     BASE = os.path.dirname(__file__)
 
-    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-3.csv"))
-    df_curr = pd.read_csv(os.path.join(BASE, "curriculo_cco.csv"))
+    while True:
+        curso = input("Digite o curso (CCO ou SIN): ").upper().strip()
+        if curso not in ['CCO', 'SIN']:
+            print("Curso inválido! Por favor, digite CCO ou SIN.")
+        else:
+            break
+    if curso == 'CCO':
+        CSV_PATH = "curriculo_CCO_HORARIOS.csv"   # ajuste o caminho conforme necessário
+    else:
+        CSV_PATH = "curriculo_SIN_HORARIOS.csv"   # ajuste o caminho conforme necessário
+        
+    df_hist = pd.read_csv(os.path.join(BASE, "dataset/historico_SIN-5.csv"))
+    df_curr = pd.read_csv(os.path.join(BASE, CSV_PATH))
 
     aluno = processar_historico(df_hist, df_curr)
 
