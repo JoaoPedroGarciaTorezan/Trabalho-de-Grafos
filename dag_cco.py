@@ -283,9 +283,9 @@ if __name__ == "__main__":
         else:
             break
     if curso == 'CCO':
-        CSV_PATH = "curriculo_CCO_HORARIOS.csv"   # ajuste o caminho conforme necessário
+        CSV_PATH = "dataset/curriculo_CCO_HORARIOS.csv"   # ajuste o caminho conforme necessário
     else:
-        CSV_PATH = "curriculo_SIN_HORARIOS.csv"   # ajuste o caminho conforme necessário
+        CSV_PATH = "dataset/curriculo_SIN_HORARIOS.csv"   # ajuste o caminho conforme necessário
 
     df = pd.read_csv(CSV_PATH)
 
