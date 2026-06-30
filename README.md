@@ -47,8 +47,8 @@ Certifique-se de ter o Python 3.12 ou superior instalado.
 
 1. **Clone o repositório:**
    ```bash
-    git clone https://github.com/JoaoPedroGarciaTorezan/Trabalho-de-Grafos.git
-    cd Trabalho-de-Grafos
+    git clone https://github.com/JoaoPedroGarciaTorezan/Sistema-de-Recomendacao-de-Matriculas.git
+    cd Sistema-de-Recomendacao-de-Matriculas
 2. **Instale as dependências:**
     - `pandas >= 2.0.0`
     - `openpyxl >= 3.1.0`
