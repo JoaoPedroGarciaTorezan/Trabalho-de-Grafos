@@ -72,18 +72,6 @@ def processar_historico(
 ) -> HistoricoAluno:
     """
     Processa o histórico do aluno e devolve um HistoricoAluno.
-
-    Parâmetros
-    ----------
-    df_historico : DataFrame com colunas
-        semestre, codigo, nome, ch, situacao, media
-
-    df_curriculo : DataFrame com colunas
-        CODIGO, AREA  (usado para mapear disciplina → área)
-
-    Retorno
-    -------
-    HistoricoAluno com aprovadas, capacidade_mochila e afinidade preenchidos.
     """
 
     resultado = HistoricoAluno()
@@ -97,16 +85,16 @@ def processar_historico(
     mask_apr = df_historico["situacao"].isin(["APR", "CUMP"])
     df_apr   = df_historico[mask_apr].copy()
 
+    # Garante que strings vazias e textos virem NaN de verdade
+    df_apr["media"] = pd.to_numeric(df_apr["media"], errors="coerce")
+
     # ── 1. Conjunto de aprovadas ─────────────────────────────────────────────
     resultado.aprovadas = set(df_apr["codigo"].str.strip())
 
     # ── 2. Capacidade da mochila ─────────────────────────────────────────────
-    # Considera apenas semestres reais (exclui 'TRANSFERENCIA')
     mask_semestre_real = df_apr["semestre"] != "TRANSFERENCIA"
-    df_semestres_reais = df_apr[mask_semestre_real]
-
-    # Garante que ch é numérico — o parse_historico lê tudo como string
-    df_semestres_reais = df_semestres_reais.copy()
+    df_semestres_reais = df_apr[mask_semestre_real].copy()
+    
     df_semestres_reais["ch"] = pd.to_numeric(df_semestres_reais["ch"], errors="coerce").fillna(0)
 
     ch_por_semestre: dict[str, int] = (
@@ -120,31 +108,28 @@ def processar_historico(
 
     if ch_por_semestre:
         media_ch = sum(ch_por_semestre.values()) / len(ch_por_semestre)
-        # Arredonda para múltiplo de 16 mais próximo (granularidade de CH)
         resultado.capacidade_mochila = _arredondar_ch(media_ch)
     else:
         resultado.capacidade_mochila = 0
 
     # ── 3. Afinidade por área ────────────────────────────────────────────────
-    # Usa apenas APR com nota real (media não-nula) e área conhecida no currículo.
-    # CUMP/DISP sem nota → ignorados (conforme decisão de projeto).
-
     notas_por_area: dict[str, list[float]] = {}
 
     for _, row in df_apr.iterrows():
         codigo = str(row["codigo"]).strip()
         nota   = row.get("media")
 
-        # Ignora disciplinas sem nota
+        # Agora o pd.isna(nota) vai funcionar perfeitamente para as strings vazias!
         if pd.isna(nota):
             continue
 
         area = area_map.get(codigo)
 
-        # Disciplinas fora do currículo (optativas externas) não têm área mapeada
         if area is None:
             continue
 
+        # Como a coluna já foi convertida pelo pd.to_numeric, 
+        # 'nota' já é um float nativo do Python/NumPy aqui.
         notas_por_area.setdefault(area, []).append(float(nota))
 
     resultado.notas_por_area = notas_por_area
@@ -195,7 +180,7 @@ if __name__ == "__main__":
     else:
         CSV_PATH = "curriculo_SIN_HORARIOS.csv"   # ajuste o caminho conforme necessário
         
-    df_hist = pd.read_csv(os.path.join(BASE, "dataset/historico_SIN-5.csv"))
+    df_hist = pd.read_csv(os.path.join(BASE, "historico_CCO-5.csv"))
     df_curr = pd.read_csv(os.path.join(BASE, CSV_PATH))
 
     aluno = processar_historico(df_hist, df_curr)

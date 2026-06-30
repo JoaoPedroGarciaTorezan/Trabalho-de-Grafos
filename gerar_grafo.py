@@ -12,6 +12,12 @@ colorindo cada disciplina conforme o estado do aluno:
                   filtro_disciplinas)
     NAO_CURSADA → ainda bloqueada por pré-requisito não satisfeito
 
+Dentro de cada coluna de período, as disciplinas OBRIGATÓRIAS (e TCC) ficam
+centralizadas na parte de cima (desenhadas como círculo), e as OPTATIVAS
+daquele mesmo período ficam abaixo delas, separadas por um espaço, desenhadas
+como quadrado — assim a sequência principal da grade fica visualmente isolada
+das eletivas, sem precisar de uma faixa lateral separada.
+
 As disciplinas selecionadas pelo MWIS (resultado final da recomendação)
 recebem um contorno dourado para se destacarem das demais disponíveis.
 
@@ -38,11 +44,12 @@ import matplotlib
 matplotlib.use("Agg")  # backend não interativo — necessário em scripts/pipelines
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
 
 import networkx as nx
 import pandas as pd
 
-from dag_cco import DAG
+from dag_cco import DAG, Disciplina
 from read_historico import HistoricoAluno
 from filtro_disciplinas import DisciplinaDisponivel
 
@@ -103,32 +110,75 @@ def _classificar_estados(
 
 
 # ---------------------------------------------------------------------------
+# Classificação por tipo (obrigatória/TCC vs. optativa) — define a forma
+# ---------------------------------------------------------------------------
+
+def _eh_obrigatoria(disc: Disciplina) -> bool:
+    """
+    True para OBRIGATORIA e TCC (ficam na parte de cima da coluna, círculo).
+    False para qualquer outro tipo (ex.: OPTATIVA, ELETIVA — ficam embaixo,
+    desenhadas como quadrado).
+    """
+    return disc.tipo.upper().strip() in {"OBRIGATORIA", "TCC"}
+
+
+# ---------------------------------------------------------------------------
 # Layout em camadas por período da grade
 # ---------------------------------------------------------------------------
 
-def _layout_por_periodo(dag: DAG) -> tuple[dict[str, tuple[float, float]], dict[int, list[str]]]:
+_GAP_OPTATIVAS = 1.4   # espaço vertical entre o bloco de obrigatórias e o de optativas
+
+
+def _layout_por_periodo(
+    dag: DAG,
+) -> tuple[dict[str, tuple[float, float]], dict[int, list[str]], dict[int, int]]:
     """
     Posiciona cada disciplina em (x, y), onde x = período sugerido na grade
-    (campo `periodo` de Disciplina) e y distribui as disciplinas do mesmo
-    período verticalmente, centradas em torno de 0.
+    (campo `periodo` de Disciplina).
 
-    Retorna (pos, por_periodo) — por_periodo é usado depois para desenhar os
-    rótulos "1º Período", "2º Período", etc.
+    Dentro de cada coluna (mesmo x):
+        - Disciplinas OBRIGATORIA/TCC ficam centralizadas em torno de y=0,
+          na parte de cima.
+        - Disciplinas OPTATIVA ficam empilhadas abaixo do bloco de
+          obrigatórias daquele mesmo período, separadas por um espaço fixo.
+
+    Retorna (pos, por_periodo, alturas_obrig):
+        pos          : { codigo → (x, y) }
+        por_periodo  : { periodo → [codigos] }, usado para os rótulos no topo
+        alturas_obrig: { periodo → nº de obrigatórias }, usado para alinhar
+                        o rótulo "Nº Período" sempre acima do bloco de
+                        obrigatórias, independente de quantas optativas tem
+                        embaixo.
     """
     por_periodo: dict[int, list[str]] = defaultdict(list)
     for codigo, disc in dag.vertices.items():
         por_periodo[disc.periodo].append(codigo)
 
     pos: dict[str, tuple[float, float]] = {}
-    for periodo, codigos in por_periodo.items():
-        codigos_ordenados = sorted(codigos)
-        n = len(codigos_ordenados)
-        for i, codigo in enumerate(codigos_ordenados):
-            x = periodo - 1
-            y = (n - 1) / 2 - i
-            pos[codigo] = (float(x), float(y))
+    alturas_obrig: dict[int, int] = {}
 
-    return pos, dict(sorted(por_periodo.items()))
+    for periodo, codigos in por_periodo.items():
+        obrig = sorted(c for c in codigos if _eh_obrigatoria(dag.vertices[c]))
+        optat = sorted(c for c in codigos if not _eh_obrigatoria(dag.vertices[c]))
+
+        x = float(periodo - 1)
+
+        # Bloco de obrigatórias: centralizado em y=0
+        n_o = len(obrig)
+        for i, codigo in enumerate(obrig):
+            y = (n_o - 1) / 2 - i
+            pos[codigo] = (x, float(y))
+
+        # Bloco de optativas: empilhado abaixo do menor y das obrigatórias
+        y_min_obrig = -(n_o - 1) / 2 if n_o else 0.0
+        y_cursor = y_min_obrig - _GAP_OPTATIVAS
+        for codigo in optat:
+            pos[codigo] = (x, float(y_cursor))
+            y_cursor -= 1.0
+
+        alturas_obrig[periodo] = n_o
+
+    return pos, dict(sorted(por_periodo.items())), alturas_obrig
 
 
 # ---------------------------------------------------------------------------
@@ -180,48 +230,82 @@ def gerar_grafo_curriculo(
         {d.codigo for d in resultado.selecionadas} if resultado is not None else set()
     )
 
-    node_colors:     list[str] = []
-    node_edgecolors: list[str] = []
-    node_linewidths: list[float] = []
-    for codigo in G.nodes:
-        node_colors.append(_COR_ESTADO[estados.get(codigo, "NAO_CURSADA")])
-        if codigo in codigos_selecionados:
-            node_edgecolors.append(_COR_CONTORNO_SELECIONADA)
-            node_linewidths.append(3.5)
-        else:
-            node_edgecolors.append(_COR_CONTORNO_PADRAO)
-            node_linewidths.append(1.0)
+    # ── 3. Layout em camadas (obrigatórias acima, optativas embaixo) ─────────
+    pos, por_periodo, alturas_obrig = _layout_por_periodo(dag)
 
-    # ── 3. Layout em camadas ──────────────────────────────────────────────────
-    pos, por_periodo = _layout_por_periodo(dag)
+    obrig_nodes = [c for c in G.nodes if _eh_obrigatoria(dag.vertices[c])]
+    optat_nodes = [c for c in G.nodes if not _eh_obrigatoria(dag.vertices[c])]
+
+    def _cores_do_grupo(grupo: list[str]) -> tuple[list[str], list[str], list[float]]:
+        cores, contornos, larguras = [], [], []
+        for codigo in grupo:
+            cores.append(_COR_ESTADO[estados.get(codigo, "NAO_CURSADA")])
+            if codigo in codigos_selecionados:
+                contornos.append(_COR_CONTORNO_SELECIONADA)
+                larguras.append(3.5)
+            else:
+                contornos.append(_COR_CONTORNO_PADRAO)
+                larguras.append(1.0)
+        return cores, contornos, larguras
+
+    cores_obrig, contornos_obrig, larguras_obrig = _cores_do_grupo(obrig_nodes)
+    cores_optat, contornos_optat, larguras_optat = _cores_do_grupo(optat_nodes)
 
     # ── 4. Plot ────────────────────────────────────────────────────────────────
     largura = max(20, 2.6 * len(por_periodo))
-    plt.figure(figsize=(largura, 11))
 
-    labels = {c: f"{c}\n{dag.vertices[c].nome}" for c in G.nodes}
+    ys = [y for _, y in pos.values()]
+    altura = max(11.0, (max(ys) - min(ys)) * 0.85 + 4) if ys else 11.0
+    plt.figure(figsize=(largura, altura))
+    ax = plt.gca()
 
-    nx.draw(
+    nx.draw_networkx_edges(
         G, pos,
-        labels=labels,
-        with_labels=True,
-        node_size=3600,
-        node_color=node_colors,
-        edgecolors=node_edgecolors,
-        linewidths=node_linewidths,
-        font_size=6.5,
-        font_weight="bold",
-        arrows=True,
-        arrowsize=14,
         edge_color="#90A4AE",
         width=1.2,
+        arrows=True,
+        arrowsize=14,
+        ax=ax,
     )
 
-    ax = plt.gca()
-    max_n = max((len(v) for v in por_periodo.values()), default=1)
+    if obrig_nodes:
+        nx.draw_networkx_nodes(
+            G, pos,
+            nodelist=obrig_nodes,
+            node_shape="o",
+            node_size=3600,
+            node_color=cores_obrig,
+            edgecolors=contornos_obrig,
+            linewidths=larguras_obrig,
+            ax=ax,
+        )
+
+    if optat_nodes:
+        nx.draw_networkx_nodes(
+            G, pos,
+            nodelist=optat_nodes,
+            node_shape="s",
+            node_size=3600,
+            node_color=cores_optat,
+            edgecolors=contornos_optat,
+            linewidths=larguras_optat,
+            ax=ax,
+        )
+
+    labels = {c: f"{c}\n{dag.vertices[c].nome}" for c in G.nodes}
+    nx.draw_networkx_labels(
+        G, pos,
+        labels=labels,
+        font_size=6.5,
+        font_weight="bold",
+        ax=ax,
+    )
+
     for periodo in por_periodo:
+        n_o = alturas_obrig.get(periodo, 0)
+        topo_obrig = (n_o - 1) / 2 if n_o else 0.0
         ax.text(
-            periodo - 1, max_n / 2 + 0.8,
+            periodo - 1, topo_obrig + 0.8,
             f"{periodo}º Período",
             ha="center", va="bottom", fontsize=13, fontweight="bold", color="#37474F",
         )
@@ -232,6 +316,17 @@ def gerar_grafo_curriculo(
             facecolor="white", edgecolor=_COR_CONTORNO_SELECIONADA, linewidth=3,
             label="SELECIONADA (MWIS)",
         )
+    )
+    # Entradas de forma (círculo x quadrado) — usam marcadores em vez de cor
+    legenda.append(
+        Line2D([0], [0], marker="o", linestyle="None", markersize=11,
+               markerfacecolor="#CFD8DC", markeredgecolor=_COR_CONTORNO_PADRAO,
+               label="Obrigatória / TCC")
+    )
+    legenda.append(
+        Line2D([0], [0], marker="s", linestyle="None", markersize=10,
+               markerfacecolor="#CFD8DC", markeredgecolor=_COR_CONTORNO_PADRAO,
+               label="Optativa / Eletiva")
     )
     plt.legend(handles=legenda, loc="lower right", fontsize=11)
 
