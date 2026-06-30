@@ -35,9 +35,8 @@ As disciplinas elegíveis com seus respectivos scores tornam-se vértices em um 
 ├── main.py                                # Orquestrador central e interface do pipeline   
 ├── mwis.py                                # Algoritmo do Grafo de Conflitos (Exato / Guloso)   
 ├── parse_historico.py                     # Extrator Regex/Textual para PDFs de histórico do SIGAA  
-├── read_historico.py                      # Processamento do perfil do aluno (CRA, CH, Afinidades)   
-├── score.py                               # Inteligência Pedagógica (BFS + Caminho Crítico)   
-└── requirements.txt                       # Dependências de bibliotecas do projeto 
+├── read_historico.py                      # Processamento do perfil do aluno (CRA, CH, Afinidades)     
+└── score.py                               # Inteligência Pedagógica (BFS + Caminho Crítico) 
 
 ---
 
